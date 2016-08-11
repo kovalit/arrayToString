@@ -1,19 +1,41 @@
     
-    var assert = require("assert");
- 
+    var assert  = require("assert");
+    var async   = require('async');
  
     var ArrayToRangeString = require('../index');
     
-    var array = [1,2,3,4,5,6,7,8];
+    var dataProvider = {
+        "1-8" : [1,2,3,4,5,6,7,8], 
+        "1,3-8" : [1,3,4,5,6,7,8],
+        "1,3-8,10-12" : [1,3,4,5,6,7,8,10,11,12],
+        "1-3" : [1,2,3],
+        "1,2" : [1,2],
+        "1,2,4" : [1,2,4],
+        "1,2,4-6" : [1,2,4,5,6],
+        "1-3,7-9,15,17,19-21" : [1,2,3,7,8,9,15,17,19,20,21],
+        "1-6,100,1091,1999-2002" : [1,2,3,4,5,6,100,1091,1999,2000,2001,2002],
+        "1": [1], 
+        "1,3,5,7,9,11": [1,3,5,7,9,11]
+    };
     
-    var ex = function(err, value) {
-        assert.equal(value, '1-8');
-    }
-      
-    describe('User#save()', function(){
-        it('should save without error', function(done){
-            ArrayToRangeString.convert(array, ex);
-            done();
+    
+    describe('array to string test', function(){
+        it('should save without error', function(){
+        
+        for (var key in  dataProvider) {   
+                async.waterfall([
+                  function(callback) {
+                      ArrayToRangeString.convert(dataProvider[key], callback);
+                  },            
+                ],
+                function (err, result) {
+                    if (!err) {
+                        assert.equal(result, key);
+                    }
+                });
+        }
+
+            
         })
     })
 
