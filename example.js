@@ -1,9 +1,10 @@
     var ArrayToRangeString = require('./index');
     
-    var array = '[1,2,3,4,5,6,8]';
+    var  arr = [1,2,3,4,5,6,7,8];
     
-    
-    ArrayToRangeString.convert(array, function(err, value){
+    ArrayToRangeString.convert(arr, function(err, value){
         if (err) throw err;
         console.log(value);
     })
+    
+    

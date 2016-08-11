@@ -10,7 +10,7 @@
 
             if (!this.isArray(arr)){
                     var err = 'Array in not valid';
-                    return callback(err);
+                    callback(err);
             }
 
             var lenght = arr.length;
@@ -51,7 +51,7 @@
 
             var str = range.join(',');  
 
-            return callback(null, str);
+            callback(null, str);
 
         }
     };
